@@ -1,5 +1,5 @@
 import {useState,useEffect} from 'react'
-// import { IoMdCheckmark,MdDeleteForever } from "react-icons/io";
+// import { MdDeleteForever } from "react-icons/io";
 
 
 export const Todo = () => {
@@ -34,7 +34,18 @@ export const Todo = () => {
             setDateTime(`${formattedDate} - ${formattedTime}`) 
         },1000);
         return ()=> clearInterval(interval)
-      },[])
+      },[]);
+
+      const handleDeleteTodo = (value)=>{
+        console.log(task)
+        console.log(value)
+        const updatedTask = task.filter((curTask)=> curTask !== value);
+        setTask(updatedTask);
+      }
+
+      const handleClearTodoData = ()=>{
+        setTask([]);
+      };
      
 
   return <section className="todo-container">
@@ -61,13 +72,16 @@ export const Todo = () => {
             task.map((curTask,index)=>{
                 return <li key={index} className='todo-item'>
                     <span>{curTask}</span>
-                    {/* <button className='check-btn'><IoMdCheckmark/> </button>
-                    <button className='delete-btn'><MdDeleteForever/> </button> */}
+                    <button className='delete-btn' onClick={()=>handleDeleteTodo(curTask)}>
+                        {/* <MdDeleteForever/>  */}
+                        d
+                        </button>
                     </li>
             })
         }
     </ul>
 </section>
+<section className='clear-btn'onClick={handleClearTodoData} >Clear All</section>
 
   </section>
     
