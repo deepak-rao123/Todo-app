@@ -1,10 +1,18 @@
 import {useState,useEffect} from 'react'
-// import { MdDeleteForever } from "react-icons/io";
+import { MdDelete } from "react-icons/md";
+
 
 
 export const Todo = () => {
     const[inputvalue,setInputValue] = useState("");
-    const [task,setTask]= useState([])
+    const [task,setTask]= useState(()=>{
+        return JSON.parse(localStorage.getItem("task")) || []
+    })
+
+    useEffect(()=>{
+        localStorage.setItem("task",JSON.stringify(task));
+    },[task])
+
     const [dateTime,setDateTime]= useState("")
 
     const handleInputChange=(value)=>{
@@ -12,12 +20,13 @@ export const Todo = () => {
  
     }
 
-    const handleFormSubmit =(event)=>{
-        event.preventDefault();
+    const handleFormSubmit =(e)=>{
+        e.preventDefault();
 
         if(!inputvalue) return;
 
         if(task.includes(inputvalue)) return;
+
         setTask((prevTask)=> [...prevTask, inputvalue])
 
         setInputValue("")
@@ -31,14 +40,13 @@ export const Todo = () => {
             const now = new Date();
             const formattedDate = now.toLocaleDateString();
             const formattedTime = now.toLocaleTimeString(); 
-            setDateTime(`${formattedDate} - ${formattedTime}`) 
+            setDateTime(`${formattedDate} -  ${formattedTime}`) 
         },1000);
         return ()=> clearInterval(interval)
       },[]);
 
       const handleDeleteTodo = (value)=>{
-        console.log(task)
-        console.log(value)
+        
         const updatedTask = task.filter((curTask)=> curTask !== value);
         setTask(updatedTask);
       }
@@ -56,8 +64,8 @@ export const Todo = () => {
 <section className="form">
     <form onSubmit={handleFormSubmit} >
         <div>
-            <input type="text" className="todo-input" autoComplete="off" value={inputvalue}
-            onChange={(event)=>handleInputChange(event.target.value)
+            <input type="text" className="todo-input"  value={inputvalue}
+            onChange={(e)=>handleInputChange(e.target.value)
             } />
         </div>
         <div>
@@ -73,8 +81,8 @@ export const Todo = () => {
                 return <li key={index} className='todo-item'>
                     <span>{curTask}</span>
                     <button className='delete-btn' onClick={()=>handleDeleteTodo(curTask)}>
-                        {/* <MdDeleteForever/>  */}
-                        d
+                        
+                        <MdDelete/>
                         </button>
                     </li>
             })

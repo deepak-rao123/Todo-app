@@ -82,6 +82,7 @@ form input::placeholder {
 }
 
 button {
+  
   border: none;
   outline: none;
   transition: box-shadow 200ms ease, background-color 200ms ease-in-out;
@@ -135,11 +136,11 @@ span {
   background-color: #f2f3f4;
   min-width: 15rem;
   max-width: 40rem;
-  padding: 0.8rem 1.5rem;
+  padding: 1rem;
   display: grid;
   grid-template-columns: 1fr 0.3fr 0.3fr;
   justify-content: start;
-  gap: 1rem;
+  gap: 3rem;
   
   align-items: center;
      /*wrapsthelinks*/
@@ -153,15 +154,18 @@ li span {
 
 
 .delete-btn {
-  font-size: 3rem;
+  font-size: large;
+  
   cursor: pointer;
-  width: 3rem;
-  height: 3rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 80%;
-  margin: 0 3px;
+  
   background-color: #fff;
   color: rgb(0, 0, 0);
+  text-align: center;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
 }
 
 
